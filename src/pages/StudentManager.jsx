@@ -1,15 +1,30 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import StudentList from "../components/StudentList";
 import StudentForm from "../components/StudentForm";
 
 function StudentManager() {
-  const [students, setStudents] = useState([
-    { id: 1, name: "Nguyễn Văn A", class: "12A", age: 18 },
-    { id: 2, name: "Trần Thị B", class: "12B", age: 17 },
-    { id: 3, name: "Lê Văn C", class: "12A", age: 19 },
-  ]);
+  const [students, setStudents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedClass, setSelectedClass] = useState("");
+
+  useEffect(() => {
+    const savedStudents = JSON.parse(localStorage.getItem("students"));
+    if (savedStudents) {
+      setStudents(savedStudents);
+    }
+  }, []);
+  useEffect(() => {
+    if (students.length > 0) {
+      console.log("Lưu danh sách sinh viên vào localStorage:", students);
+      localStorage.setItem("students", JSON.stringify(students));
+    }
+  }, [students]);
+
+  useEffect(() => {
+    if (students.length > 0) {
+      localStorage.setItem("students", JSON.stringify(students));
+    }
+  }, [students]);
 
   const addStudent = (student) => {
     setStudents((prev) => [...prev, { ...student, id: Date.now() }]);
