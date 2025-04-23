@@ -8,6 +8,7 @@ function StudentManager() {
     { id: 2, name: "Trần Thị B", class: "12B", age: 17 },
     { id: 3, name: "Lê Văn C", class: "12A", age: 19 },
   ]);
+  const [searchTerm, setSearchTerm] = useState(""); 
 
   const addStudent = (student) => {
     setStudents((prev) => [...prev, { ...student, id: Date.now() }]);
@@ -25,12 +26,30 @@ function StudentManager() {
     );
   };
 
+  const filterStudents = () => {
+    if (!searchTerm) return students;
+    return students.filter((student) =>
+      student.name.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+  };
+
   return (
     <div className="max-w-2xl mx-auto p-4">
       <h1 className="text-2xl font-bold mb-4 text-center">Danh sách sinh viên</h1>
+
+      <div className="mb-4">
+        <input
+          type="text"
+          placeholder="Tìm kiếm theo tên"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
+
       <StudentForm onAdd={addStudent} />
       <StudentList
-        students={students}
+        students={filterStudents()} 
         onDelete={deleteStudent}
         onEdit={editStudent}
       />
