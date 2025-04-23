@@ -1,26 +1,19 @@
-function StudentList({ students, onDelete }) {
-    return (
-      <div className="space-y-2">
-        {students.map((s) => (
-          <div
-            key={s.id}
-            className="flex justify-between items-center border p-3 rounded shadow-sm bg-white"
-          >
-            <div className="text-sm">
-              <p className="font-semibold">{s.name}</p>
-              <p className="text-gray-600">Lớp: {s.class} - Tuổi: {s.age}</p>
-            </div>
-            <button
-              onClick={() => onDelete(s.id)} // Xử lý khi xóa sinh viên
-              className="text-red-500 hover:underline text-sm"
-            >
-              Xoá
-            </button>
-          </div>
-        ))}
-      </div>
-    );
-  }
-  
-  export default StudentList;
-  
+import React from "react";
+import StudentItem from "./StudentItem";
+
+function StudentList({ students, onDelete, onEdit }) {
+  return (
+    <ul className="space-y-4">
+      {students.map((student) => (
+        <StudentItem
+          key={student.id}
+          student={student}
+          onDelete={onDelete}
+          onEdit={onEdit}
+        />
+      ))}
+    </ul>
+  );
+}
+
+export default StudentList;
