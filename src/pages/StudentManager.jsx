@@ -1,8 +1,6 @@
-
 import { useState, useEffect } from "react"
 import StudentForm from "../components/StudentForm"
 import StudentList from "../components/StudentList"
-import StudentItem from "../components/StudentItem"
 
 function StudentManager() {
   const [students, setStudents] = useState([])
